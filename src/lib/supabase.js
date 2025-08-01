@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://qpqiuwagguutnlcvybqy.supabase.co'
-const supabaseKey = process.env.supabaseKey
+const supabaseKey = import.meta.env.VITE_SUPABASE_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseKey)
 export const signIn = async (email, password) => {
