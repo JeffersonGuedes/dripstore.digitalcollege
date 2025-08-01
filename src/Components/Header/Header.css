@@ -1,6 +1,6 @@
 header {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 4.5rem;
+    padding-right: 4.5rem;
     position: relative;
     z-index: 1;
     background-color: var(--white);
@@ -14,6 +14,7 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 2rem;
 }
 
 nav a img {
@@ -69,37 +70,23 @@ nav a img {
     color: var(--primary);
 }
 
-.nav-header button {
-    width: 7.125rem;
-    height: 2.5rem;
-    border-radius: 0.5rem;
-    background-color: var(--primary);
-    color: var(--white);
-    font-family: var(--font_primaria);
-    font-weight: var(--font_weight_normal);
-    font-size: 1rem;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    transition: 0.5s ease;
+.btn-header-login a {
+    width: 7.125rem !important;
+    height: 2.5rem !important;
+    background-color: var(--primary) !important;
+    transition: 0.5s ease !important;
 }
 
-.nav-header button:hover {
+.btn-header-login a:hover {
     background-color: var(--tertiary) !important;
-    color: var(--white) !important;
 }
-
-.nav-header button a {
-    text-decoration: none;
-}
-
 
 .nav-header .icon-carrinho {
     width: 2.06rem;
     height: auto;
 }
 
-.link-carrinho-nav:hover{
+.link-carrinho-nav:hover {
     transform: scale(1.2);
 }
 
@@ -127,23 +114,7 @@ nav a img {
     border-bottom: var(--primary) 0.15rem solid;
 }
 
-/* .nav-footer .nav-footer-home {
-    font-weight: var(--font_weight_bold);
-    color: var(--primary);
-    font-size: 1rem;
-    padding-bottom: 0.3rem;
-    border-bottom: var(--primary) 0.15rem solid;
-} */
-
-/* .nav-footer .nav-footer-home .selected{
-    font-weight: var(--font_weight_bold);
-    color: var(--primary);
-    font-size: 1rem;
-    padding-bottom: 0.3rem;
-    border-bottom: var(--primary) 0.15rem solid;
-} */
-
-.nav-footer .nav-footer-produtos .selected{
+.nav-footer .selected {
     font-weight: var(--font_weight_bold);
     color: var(--primary);
     font-size: 1rem;
@@ -151,19 +122,31 @@ nav a img {
     border-bottom: var(--primary) 0.15rem solid;
 }
 
-.nav-footer .nav-footer-categorias .selected{
-    font-weight: var(--font_weight_bold);
-    color: var(--primary);
-    font-size: 1rem;
-    padding-bottom: 0.3rem;
-    border-bottom: var(--primary) 0.15rem solid;
+/* Estilos para informações do usuário */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.nav-footer .nav-footer-pedidos .selected{
-    font-weight: var(--font_weight_bold);
-    color: var(--primary);
-    font-size: 1rem;
-    padding-bottom: 0.3rem;
-    border-bottom: var(--primary) 0.15rem solid;
+.user-welcome {
+    color: var(--dark-gray-2);
+    font-size: 0.9rem;
+    font-weight: var(--font_weight_medium);
 }
 
+.btn-logout {
+    background-color: var(--error);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-logout:hover {
+    background-color: #c53030;
+    transform: translateY(-1px);
+}

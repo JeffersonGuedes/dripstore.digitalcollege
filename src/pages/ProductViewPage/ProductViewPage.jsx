@@ -5,28 +5,31 @@ import Cards2 from "../../Components/Cards/Cards2";
 import Cards from "../../Components/Cards/Cards";
 import Carrousel from "../../Components/CarouselMenor/CarouselMenor";
 import sapatoAzul from "../../assets/img/sapato_card.png";
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-//esse é o projeto atual
 function ProductView() {
-  const [character, setCharacter] = useState([])
+  const [produtos, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://669111dd26c2a69f6e8e4d94.mockapi.io/products/products")
-        setCharacter(response.data)
+        const response = await axios.get("http://localhost:3000/api/products");
+        setProducts(response.data);
         console.log("API response:", response.data);
-        setLoading(false)
-        console.log(`deu certo`)
       } catch (error) {
-        console.log(`o erro foi ${error}`)
-        setLoading(false)
+        console.log(`Erro ao buscar produtos: ${error}`);
       }
-    }
+    };
     fetchData();
-  }, [])
+  }, []);
+
+  function calcularPorcentagemDesconto(preco, preco_desconto) {
+    const desconto = preco - preco_desconto;
+    const porcentagemDesconto = (desconto / preco) * 100;
+    return parseFloat(porcentagemDesconto.toFixed(2));
+  }
 
   return (
     <>
@@ -100,7 +103,9 @@ function ProductView() {
                 </div>
               </div>
             </div>
-            <button className="botaoCompraProductView">Comprar</button>
+            <div className="button-link-home botaoCompraProductView">
+              <Link to="/Cart">Comprar</Link>
+            </div>
           </div>
         </div>
       </div>
@@ -108,29 +113,35 @@ function ProductView() {
       <section className="produtos_relacionados">
         <h5>Produtos relacionados</h5>
         <div className="produto-em-alta-cards">
-          {Array.isArray(character) && character.slice(0, 4).map(card => (
-            card.desconto === true ? (
-              <Cards2
-                key={card.id}
-                oferta={card.valordesconto}
-                foto={sapatoAzul}
-                titulo={card.titulo}
-                descricao={card.descricao}
-                valorantigo={card.valorantigo}
-                valoratual={card.valoratual}
-              />
-            ) : (
-              <Cards
-                key={card.id}
-                foto={sapatoAzul}
-                titulo={card.titulo}
-                descricao={card.descricao}
-                valorantigo={card.valorantigo}
-                valoratual={card.valoratual}
-              />
-            )
-          ))}
-        </div>
+            {produtos.slice(0, 4).map((produto) => {
+              console.log(produto); // Verifique a estrutura de dados aqui
+              return (
+                <div key={produto.id}>
+                  {produto.preco_desconto ? (
+                    <Cards2
+                      oferta={calcularPorcentagemDesconto(
+                        produto.preco,
+                        produto.preco_desconto
+                      )}
+                      foto={produto.imagens?.[0]?.path || "default_image_path"} 
+                      titulo={produto.marca}
+                      descricao={produto.descricao}
+                      valorantigo={produto.preco}
+                      valoratual={produto.preco_desconto}
+                    />
+                  ) : (
+                    <Cards
+                      foto={produto.imagens?.[0]?.path || "default_image_path"} 
+                      titulo={produto.marca}
+                      descricao={produto.descricao}
+                      valorantigo={produto.preco}
+                      valoratual={produto.preco_desconto}
+                    />
+                  )}
+                </div>
+              );
+            })}
+          </div>
       </section>
 
       <Footer />
